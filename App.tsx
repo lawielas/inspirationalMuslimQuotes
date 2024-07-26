@@ -1,118 +1,65 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
-import React from 'react';
-import type {PropsWithChildren} from 'react';
 import {
+  Button,
+  Image,
+  Pressable,
   SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
   Text,
-  useColorScheme,
+  TextInput,
   View,
 } from 'react-native';
+import logo from './assets/logo.png';
+import {useEffect, useState} from 'react';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default function App() {
+  const [startScreen, setStartScreen] = useState(true);
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  useEffect(() => {
+    setTimeout(() => {
+      setStartScreen(false);
+    }, 4000);
+  }, []);
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    <SafeAreaView>
+      {startScreen && (
+        <View className="bg-[#52AA5E] h-screen relative flex items-center justify-end ">
+          <View className="absolute h-full flex justify-center items-center w-full">
+            <Image source={logo} alt="logo" />
+          </View>
+          <Text className="text-white mb-16 font-semibold">
+            Get inspired by the words of Allah
+          </Text>
         </View>
-      </ScrollView>
+      )}
+
+      {!startScreen && (
+        <View className="p-5 pt-10 flex flex-col gap-10 relative">
+          <View className="absolute p-5 right-0">
+            <Pressable>
+              <Text className="text-0-primary-green text-lg font-medium w-fit">
+                Skip
+              </Text>
+            </Pressable>
+          </View>
+          <View className="flex flex-col items-center py-8 gap-3">
+            <Text className="text-3xl font-semibold text-center text-gray-950">
+              Marhaban whats's your name?
+            </Text>
+            <Text className="text-center text-gray-700">
+              Your name will be displayed in your quotes
+            </Text>
+          </View>
+          <View className="border-[1px] p-2 rounded-md border-gray-300">
+            <TextInput
+              className="outline-none text-lg w-full"
+              placeholder="What's your name?"
+            />
+          </View>
+          <Pressable className="bg-0-primary-green rounded-md p-2">
+            <Text className="text-white text-center text-lg">Done</Text>
+          </Pressable>
+        </View>
+      )}
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
